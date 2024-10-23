@@ -1,0 +1,5 @@
+# Ignore Maven files
+/pom.xml
+
+# Ignore IntelliJ IDEA files
+/.idea/
