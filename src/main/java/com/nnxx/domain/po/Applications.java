@@ -2,9 +2,11 @@ package com.nnxx.domain.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.nnxx.domain.enums.ApplicationsStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,38 +25,40 @@ import lombok.experimental.Accessors;
 @TableName("applications")
 public class Applications implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 申请唯一标识符
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 用户ID，外键
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 院校ID，外键
      */
-    private Integer universityId;
+    private Long universityId;
+
+    /**
+     * 专业
+     */
+    private String profession;
+
+    /**
+     * 申请材料
+     */
+    private String applicationMaterials;
 
     /**
      * 申请日期
      */
-    private LocalDate applicationDate;
+    private LocalDateTime applicationDate;
 
     /**
      * 申请状态
      */
-    private Integer status;
-
-    /**
-     * 申请材料是否审核
-     */
-    private Integer materialsReviewed;
+    private ApplicationsStatus status;
 
     /**
      * 审核建议

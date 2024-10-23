@@ -1,4 +1,4 @@
-package com.nong.domain;
+package com.nnxx.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

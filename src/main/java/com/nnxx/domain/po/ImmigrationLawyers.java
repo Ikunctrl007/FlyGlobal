@@ -2,9 +2,10 @@ package com.nnxx.domain.po;
 
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
+
+import com.nnxx.domain.enums.ImmigrationType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -22,15 +23,14 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("immigration_lawyers")
 public class ImmigrationLawyers implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
     /**
      * 律师唯一标识符
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-
+    private Long id;
+    /**
+     * 用户ID
+     */
+    private Long userId;
     /**
      * 律师姓名
      */
@@ -44,7 +44,7 @@ public class ImmigrationLawyers implements Serializable {
     /**
      * 律师专长,1技术移民、2投资移民、3家庭团聚
      */
-    private Integer specialization;
+    private ImmigrationType specialization;
 
     /**
      * 律师经验年数

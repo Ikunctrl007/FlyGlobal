@@ -1,6 +1,7 @@
-package com.nong.domain;
+package com.nnxx.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.nnxx.domain.po.Users;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,16 +15,16 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class LoginUser implements UserDetails {
-    private UserInformation user;
+    private Users user;
 
     //定义一个用来存储权限字段的集合
-    private List<String> permissions;
+    private List<String> permissions = new ArrayList<>();
 
     //定义存储SpringSecurity所需权限的集合
     @JSONField(serialize = false)
     private List<SimpleGrantedAuthority> authorities;
 
-    public LoginUser(UserInformation user, List<String> permissions) {
+    public LoginUser(Users user, List<String> permissions) {
         this.user = user;
         this.permissions = permissions;
     }

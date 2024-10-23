@@ -23,28 +23,25 @@ import lombok.experimental.Accessors;
 @TableName("forum_messages")
 public class ForumMessages implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 论坛消息总表唯一标识符
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 帖子ID
      */
-    private Integer postId;
+    private Long postId;
 
     /**
      * 回答ID
      */
-    private Integer answerId;
+    private Long answerId;
 
     /**
      * 用户ID
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 消息时间

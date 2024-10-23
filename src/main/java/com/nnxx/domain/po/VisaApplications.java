@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.nnxx.domain.enums.ApplicationsStatus;
+import com.nnxx.domain.enums.VisaType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -36,7 +39,7 @@ public class VisaApplications implements Serializable {
     /**
      * 签证类型(0旅游签证、1留学签证、2工作签证、3探亲签证、4申根签证)
      */
-    private Integer visaType;
+    private VisaType visaType;
 
     /**
      * 材料清单
@@ -61,7 +64,7 @@ public class VisaApplications implements Serializable {
     /**
      * 申请状态（0申请中、1申请通过、2申请不通过)
      */
-    private Integer status;
+    private ApplicationsStatus status;
 
     /**
      * 最后更新时间

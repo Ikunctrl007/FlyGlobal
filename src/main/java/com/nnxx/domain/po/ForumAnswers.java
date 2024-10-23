@@ -23,23 +23,20 @@ import lombok.experimental.Accessors;
 @TableName("forum_answers")
 public class ForumAnswers implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 回答唯一标识符
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 帖子ID
      */
-    private Integer postId;
+    private Long postId;
 
     /**
      * 回答用户ID
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 回答内容

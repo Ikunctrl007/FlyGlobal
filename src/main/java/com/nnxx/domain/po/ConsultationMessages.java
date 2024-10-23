@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.nnxx.domain.enums.ConsultationMessagesType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,28 +25,21 @@ import lombok.experimental.Accessors;
 @TableName("consultation_messages")
 public class ConsultationMessages implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * 咨询消息唯一标识符
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-
-    /**
-     * 顾问类型（1=留学顾问，2=移民律师，3=签证官员）
-     */
-    private Integer advisorType;
+    private Long id;
 
     /**
      * 顾问ID（关联相应表）
      */
-    private Integer advisorId;
+    private Long advisorId;
 
     /**
      * 申请人ID，外键
      */
-    private Integer applicantId;
+    private Long applicantId;
 
     /**
      * 消息内容

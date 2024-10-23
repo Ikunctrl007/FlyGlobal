@@ -1,4 +1,4 @@
-package com.nong.config;
+package com.nnxx.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

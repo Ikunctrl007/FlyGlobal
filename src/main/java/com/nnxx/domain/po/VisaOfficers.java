@@ -23,14 +23,15 @@ import lombok.experimental.Accessors;
 @TableName("visa_officers")
 public class VisaOfficers implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 签证官员唯一标识符
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
+    /**
+     * 用户ID
+     */
+    private Long userId;
     /**
      * 签证官员姓名
      */

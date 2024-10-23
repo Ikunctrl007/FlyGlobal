@@ -1,19 +1,18 @@
-package com.nong.service.impl;
+package com.nnxx.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.nong.domain.Code;
-import com.nong.domain.LoginUser;
-import com.nong.domain.UserInformation;
-import com.nong.exception.BusinessException;
-import com.nong.mapper.UserInformationMapper;
+import com.nnxx.domain.Code;
+import com.nnxx.domain.LoginUser;
+import com.nnxx.domain.enums.UsersRole;
+import com.nnxx.domain.po.Users;
+import com.nnxx.exception.BusinessException;
+import com.nnxx.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +23,7 @@ import java.util.Objects;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserInformationMapper userMapper;
+    private UsersMapper userMapper;
 
     /**
      * 通过用户名加载用户详情。
@@ -35,11 +34,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 创建一个查询条件 LambdaQueryWrapper 对象，用于查询指定用户名的用户信息
-        LambdaQueryWrapper<UserInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(UserInformation::getUsername, username);
+        LambdaQueryWrapper<Users> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Users::getUsername, username);
 
         // 查询数据库，获取指定用户名的用户信息
-        UserInformation user = userMapper.selectOne(lambdaQueryWrapper);
+        Users user = userMapper.selectOne(lambdaQueryWrapper);
 
         // 如果用户信息为空，抛出用户名或密码错误的业务异常
         if (Objects.isNull(user)) {
@@ -48,12 +47,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         //TODO 添加权限信息
         // 模拟为用户添加权限信息，这里使用一个固定的权限列表作为示例
-        int userid = user.getId();
+        UsersRole usersRole = user.getRole();
         List<String> authorities = new ArrayList<>();
         authorities.add("user");
         //判断是否是管理员
-        if(userid==1){
-            authorities.add("admin");
+        if(usersRole==UsersRole.IMMIGRATION_LAWYER){
+            authorities.add("immigration_lawyer");
+        } else if (usersRole==UsersRole.STUDY_ABROAD_CONSULTANT) {
+            authorities.add("study_abroad_consultant");
+        }else if(usersRole==UsersRole.VISA_OFFICER){
+            authorities.add(("visa_officer"));
+        }else if (usersRole==UsersRole.SUPER_ADMINISTRATOR){
+            authorities.add("study_abroad_consultant");
+            authorities.add(("visa_officer"));
+            authorities.add("immigration_lawyer");
+            authorities.add("super_administrator");
         }
         // 返回一个自定义的 UserDetails 实现类 LoginUser，将查询到的用户信息和权限列表传入构造函数
         return new LoginUser(user, authorities);

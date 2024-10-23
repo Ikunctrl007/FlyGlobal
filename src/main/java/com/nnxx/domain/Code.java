@@ -1,8 +1,7 @@
-package com.nong.domain;
+package com.nnxx.domain;
 
 public class Code {
     public static final int SELECT_YES = 200;
-
 
     public static final int VERIFY_ERROR=401;
 

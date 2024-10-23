@@ -2,11 +2,9 @@ package com.nnxx.domain.po;
 
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 
-import com.nnxx.domain.enums.CounselorType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -29,6 +27,10 @@ public class StudyAdvisors implements Serializable {
      * 留学顾问唯一标识符
      */
     private Long id;
+    /**
+     * 用户ID
+     */
+    private Long userId;
 
     /**
      * 顾问姓名
@@ -39,11 +41,6 @@ public class StudyAdvisors implements Serializable {
      * 所属机构
      */
     private String firm;
-
-    /**
-     * 顾问专长 (1=留学申请、2=签证办理、3=移民咨询)
-     */
-    private CounselorType specialization;
 
     /**
      * 顾问经验年数

@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.nnxx.domain.enums.ForumPostsType;
+import com.nnxx.domain.enums.ImmigrationType;
+import com.nnxx.domain.enums.OccupationType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -36,7 +40,7 @@ public class ImmigrationServices implements Serializable {
     /**
      * 用户职业背景，1学生、2社会人员
      */
-    private Integer professionBackground;
+    private OccupationType professionBackground;
 
     /**
      * 用户家庭情况
@@ -51,7 +55,7 @@ public class ImmigrationServices implements Serializable {
     /**
      * 移民类型
      */
-    private Integer immigrationType;
+    private ImmigrationType immigrationType;
 
     /**
      * 个性化移民方案
@@ -62,11 +66,6 @@ public class ImmigrationServices implements Serializable {
      * 移民律师ID，外键
      */
     private Long lawyerId;
-
-    /**
-     * 最新移民政策
-     */
-    private String policyUpdates;
 
     /**
      * 咨询日期

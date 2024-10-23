@@ -1,7 +1,7 @@
 package com.nnxx.exception;
 
-import com.nong.domain.Code;
-import com.nong.domain.Result;
+import com.nnxx.domain.Code;
+import com.nnxx.domain.Result;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

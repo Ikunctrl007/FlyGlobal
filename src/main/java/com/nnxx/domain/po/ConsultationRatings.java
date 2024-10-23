@@ -23,28 +23,20 @@ import lombok.experimental.Accessors;
 @TableName("consultation_ratings")
 public class ConsultationRatings implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 评分唯一标识符
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
-     * 消息ID，外键
+     * 用户ID
      */
-    private Integer messageId;
+    private Long userId;
 
     /**
      * 评分 (1-5分)
      */
     private Integer rating;
-
-    /**
-     * 用户反馈
-     */
-    private String feedback;
 
     /**
      * 评分时间

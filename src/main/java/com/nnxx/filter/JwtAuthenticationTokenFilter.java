@@ -1,17 +1,18 @@
-package com.nong.filter;
+package com.nnxx.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import com.nong.domain.Code;
-import com.nong.domain.LoginUser;
-import com.nong.exception.BusinessException;
-import com.nong.util.JwtUtils;
+import com.nnxx.domain.Code;
+import com.nnxx.domain.LoginUser;
+import com.nnxx.domain.po.Users;
+import com.nnxx.exception.BusinessException;
+import com.nnxx.service.IUsersService;
+import com.nnxx.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -19,12 +20,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private RedisTemplate<Object,Object> redisTemplate;
+    private IUsersService usersService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //首先要获取Token
@@ -38,22 +40,33 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String token = BearerToken.substring(7);
 
         //若不为空则解析Token
-        Object userid;
+        long userid;
+        List<String> authorities;
         try {
             Claims claims = JwtUtils.parseJWT(token);
-            userid = claims.get("Token");
+            // 安全转换
+            Object tokenValue = claims.get("Token");
+            //获取权限集合
+            authorities = (List<String>) claims.get("authorities");
+            if (tokenValue instanceof Long) {
+                userid = (Long) tokenValue; // 正确的类型转换
+            } else if (tokenValue instanceof Number) {
+                userid = ((Number) tokenValue).longValue(); // 转换为 long
+            } else {
+                throw new BusinessException(Code.SELECT_ERROR, "Token 类型不正确");
+            }
         } catch (Exception e) {
             throw new BusinessException(Code.SELECT_ERROR,"Token非法");
         }
-        //通过userid去redis中取出用户信息
-        String login = "Login:"+userid;
-        // 先转成JSON对象
-        JSONObject jsonObject = (JSONObject) redisTemplate.opsForValue().get(login);
-        // JSON对象转换成Java对象
-        if (Objects.isNull(jsonObject)){
-            throw new BusinessException(Code.SELECT_ERROR,"用户未登录");
+        //通过userid查询数据库是否有数据，有数据代表注册过了
+        Users users = usersService.getById(userid);
+        if(Objects.isNull(users)){
+            throw new BusinessException(Code.SELECT_ERROR,"账号异常");
         }
-        LoginUser loginUser = jsonObject.toJavaObject(LoginUser.class);
+
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUser(users);
+        loginUser.setPermissions(authorities);
         //若拿到了用户信息，则取出用户名密码，将齐封装成SecurityContextHolder对象中
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);

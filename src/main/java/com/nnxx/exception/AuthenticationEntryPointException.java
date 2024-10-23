@@ -1,8 +1,8 @@
 package com.nnxx.exception;
 
 import com.alibaba.fastjson.JSON;
-import com.nong.domain.Result;
-import com.nong.util.WebUtils;
+import com.nnxx.domain.Result;
+import com.nnxx.util.WebUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

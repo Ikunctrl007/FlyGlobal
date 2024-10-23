@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.nnxx.domain.enums.EducationalType;
+import com.nnxx.domain.enums.UsersRole;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -24,14 +27,15 @@ import lombok.experimental.Accessors;
 @TableName("users")
 public class Users implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 主键ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
+    /**
+     * 用户角色
+     */
+    private UsersRole role;
     /**
      * 用户名
      */
@@ -70,7 +74,7 @@ public class Users implements Serializable {
     /**
      * 教育背景
      */
-    private Integer educationalBackground;
+    private EducationalType educationalBackground;
 
     /**
      * 头像

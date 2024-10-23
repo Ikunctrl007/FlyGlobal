@@ -2,6 +2,7 @@ package com.nnxx.mapper;
 
 import com.nnxx.domain.po.ImmigrationLawyers;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 宁x
  * @since 2024-10-23
  */
+@Mapper
 public interface ImmigrationLawyersMapper extends BaseMapper<ImmigrationLawyers> {
 
 }

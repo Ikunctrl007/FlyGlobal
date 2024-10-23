@@ -9,3 +9,28 @@ spring:
     url: jdbc:mysql://localhost/flyglobal
     username: root
     password: 123456
+  #  允许覆盖bean定义，为true时允许覆盖，false为不允许，在生产环境中设置为false最好，确保程序稳定性
+  main:
+    allow-bean-definition-overriding: true
+  #  SpringBoot默认只允许上传1MB大小，修改限制
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  #  将相对路径的/upload/作为静态资源提供给外部访问
+  mvc:
+    static-path-pattern: /upload/**
+
+# MybatisPlus配置
+mybatis-plus:
+  type-aliases-package: com.yzg.domain #别名扫描包
+  mapper-locations: "classpath*:/mapper/**/*.xml" #mapper文件扫描路径
+  configuration:
+    map-underscore-to-camel-case: true #是否开启下划线的驼峰映射
+    cache-enabled: false #是否开启二级缓存
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler #开启枚举处理器
+  global-config:
+    db-config:
+      id-type: auto #id默认自动增长
+      update-strategy: not_null #更新策略为：只更新非空字段
+

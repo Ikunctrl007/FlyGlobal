@@ -1,15 +1,14 @@
-package com.nong.service.impl;
+package com.nnxx.service.impl;
 
-import com.nong.domain.Code;
-import com.nong.domain.LoginUser;
-import com.nong.domain.Result;
-import com.nong.domain.UserInformation;
-import com.nong.exception.BusinessException;
-import com.nong.service.LoginService;
-import com.nong.util.JwtUtils;
+import com.nnxx.domain.Code;
+import com.nnxx.domain.LoginUser;
+import com.nnxx.domain.Result;
+import com.nnxx.domain.po.Users;
+import com.nnxx.exception.BusinessException;
+import com.nnxx.service.LoginService;
+import com.nnxx.util.JwtUtils;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,11 +23,9 @@ import java.util.Objects;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private RedisTemplate<Object,Object> redisTemplate;
     @SneakyThrows
     @Override
-    public Result login(UserInformation user) {
+    public Result login(Users user) {
         //AuthenticationManager authenticationmanager进行用户验证
         //获取用户名与密码，并封装成authenticatinomanager对象里
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
@@ -41,27 +38,14 @@ public class LoginServiceImpl implements LoginService {
         //认证通过后使用userid生成一个jwt，并存入redis中
         //首先获取Authentication对象中的用户ID
         LoginUser loginUser= (LoginUser) authenticate.getPrincipal();
-        String userid = loginUser.getUser().getId().toString();
+        Long userid = loginUser.getUser().getId();
 //        使用userid生成一个jwt的token
         Map<String, Object> claims=new HashMap<>();
+        //添加权限
+        claims.put("authorities", loginUser.getPermissions());
         claims.put("Token",userid);
         String jwt = JwtUtils.generateJwt(claims);
-        Map<String,String> jj = new HashMap<>();
-        jj.put("Token",jwt);
-        //将用户所携带的信息存入redis中
-            redisTemplate.opsForValue().set("Login:"+userid,loginUser);
-
-
-        return new Result(200,"登录成功",jj);
+        return new Result(200,"登录成功",jwt);
     }
 
-    @Override
-    public Result logout() {
-        //退出登录，只需删除redis存入的用户信息即可
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        LoginUser logout = (LoginUser) authentication.getPrincipal();
-        String userid = logout.getUser().getId().toString();
-        redisTemplate.delete("Login:" + userid);
-        return new Result(200,"退出成功",null);
-    }
 }

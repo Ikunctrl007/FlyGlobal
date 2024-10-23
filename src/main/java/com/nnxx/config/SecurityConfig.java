@@ -1,8 +1,7 @@
-package com.nong.config;
+package com.nnxx.config;
 
-import com.nong.exception.AccessDeniedHandlerException;
-import com.nong.exception.AuthenticationEntryPointException;
-import com.nong.filter.JwtAuthenticationTokenFilter;
+import com.nnxx.exception.AccessDeniedHandlerException;
+import com.nnxx.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

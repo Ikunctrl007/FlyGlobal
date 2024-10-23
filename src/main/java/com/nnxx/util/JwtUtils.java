@@ -1,4 +1,4 @@
-package com.nong.util;
+package com.nnxx.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -9,21 +9,19 @@ import java.util.Map;
 
 public class JwtUtils {
 
-    private static String signKey = "forever";
-    private static Long expire = 4320000000L;
+    private static final String signKey = "forever";
+    private static final Long expire = 4320000000L;
 
     /**
      * 生成JWT令牌
      * @param claims JWT第二部分负载 payload 中存储的内容
-     * @return
      */
     public static String generateJwt(Map<String, Object> claims){
-        String jwt = Jwts.builder()
+        return Jwts.builder()
                 .addClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, signKey)
                 .setExpiration(new Date(System.currentTimeMillis() + expire))
                 .compact();
-        return jwt;
     }
 
     /**
@@ -32,10 +30,9 @@ public class JwtUtils {
      * @return JWT第二部分负载 payload 中存储的内容
      */
     public static Claims parseJWT(String jwt){
-        Claims claims = Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(signKey)
                 .parseClaimsJws(jwt)
                 .getBody();
-        return claims;
     }
 }

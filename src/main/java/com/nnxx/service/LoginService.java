@@ -1,11 +1,10 @@
-package com.nong.service;
+package com.nnxx.service;
 
 
-import com.nong.domain.Result;
-import com.nong.domain.UserInformation;
+import com.nnxx.domain.Result;
+import com.nnxx.domain.po.Users;
 
 public interface LoginService {
-    Result login(UserInformation user);
+    Result login(Users user);
 
-    Result logout();
 }
