@@ -6,4 +6,8 @@ Enum类：
 移民(ImmigrationType)的类型，技术移民、投资移民、家庭团聚
 人员(OccupationType)的类型，学生、社会人员
 签证(VisaType)的类型，旅游签证、留学签证、工作签证、探亲签证、申根签证
-
+NORMAL_USER(0,"普通用户"),
+STUDY_ABROAD_CONSULTANT(1,"留学顾问"),
+IMMIGRATION_LAWYER(2,"移民律师"),
+VISA_OFFICER(3,"签证官员"),
+SUPER_ADMINISTRATOR(4,"超级管理员");
