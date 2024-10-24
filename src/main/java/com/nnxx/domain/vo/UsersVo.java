@@ -17,7 +17,7 @@ public class UsersVo {
 
     private String email;
 
-    private Integer sex;
+    private String  sex;
 
     private LocalDate dateOfBirth;
 

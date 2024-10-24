@@ -40,26 +40,20 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String token = BearerToken.substring(7);
 
         //若不为空则解析Token
-        long userid;
         List<String> authorities;
+        long id;
         try {
             Claims claims = JwtUtils.parseJWT(token);
             // 安全转换
-            Object tokenValue = claims.get("Token");
+            Object userid = claims.get("Token");
             //获取权限集合
             authorities = (List<String>) claims.get("authorities");
-            if (tokenValue instanceof Long) {
-                userid = (Long) tokenValue; // 正确的类型转换
-            } else if (tokenValue instanceof Number) {
-                userid = ((Number) tokenValue).longValue(); // 转换为 long
-            } else {
-                throw new BusinessException(Code.SELECT_ERROR, "Token 类型不正确");
-            }
+            id = Long.parseLong(userid.toString());
         } catch (Exception e) {
             throw new BusinessException(Code.SELECT_ERROR,"Token非法");
         }
         //通过userid查询数据库是否有数据，有数据代表注册过了
-        Users users = usersService.getById(userid);
+        Users users = usersService.getById(id);
         if(Objects.isNull(users)){
             throw new BusinessException(Code.SELECT_ERROR,"账号异常");
         }

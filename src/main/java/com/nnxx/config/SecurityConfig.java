@@ -41,7 +41,7 @@ public class SecurityConfig  {
         http.csrf(AbstractHttpConfigurer::disable)// 禁用CSRF保护
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/products").permitAll() // 允许匿名访问GET /products
-                        .requestMatchers("/login", "/register", "/upload/**", "/orders/update").permitAll()
+                        .requestMatchers("/login", "/users/register", "/upload/**", "/orders/update").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(config -> config
                         .authenticationEntryPoint(authenticationEntryPoint)// 配置认证入口点

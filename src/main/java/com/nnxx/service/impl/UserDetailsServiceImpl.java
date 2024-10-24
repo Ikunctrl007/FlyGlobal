@@ -49,19 +49,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 模拟为用户添加权限信息，这里使用一个固定的权限列表作为示例
         UsersRole usersRole = user.getRole();
         List<String> authorities = new ArrayList<>();
-        authorities.add("user");
+        authorities.add("USER");
         //判断是否是管理员
         if(usersRole==UsersRole.IMMIGRATION_LAWYER){
-            authorities.add("immigration_lawyer");
+            authorities.add("IMMIGRATION_LAWYER");
         } else if (usersRole==UsersRole.STUDY_ABROAD_CONSULTANT) {
-            authorities.add("study_abroad_consultant");
+            authorities.add("STUDY_ABROAD_CONSULTANT");
         }else if(usersRole==UsersRole.VISA_OFFICER){
-            authorities.add(("visa_officer"));
+            authorities.add(("VISA_OFFICER"));
         }else if (usersRole==UsersRole.SUPER_ADMINISTRATOR){
-            authorities.add("study_abroad_consultant");
-            authorities.add(("visa_officer"));
-            authorities.add("immigration_lawyer");
-            authorities.add("super_administrator");
+            authorities.add("STUDY_ABROAD_CONSULTANT");
+            authorities.add(("VISA_OFFICER"));
+            authorities.add("IMMIGRATION_LAWYER");
+            authorities.add("SUPER_ADMINISTRATOR");
         }
         // 返回一个自定义的 UserDetails 实现类 LoginUser，将查询到的用户信息和权限列表传入构造函数
         return new LoginUser(user, authorities);

@@ -21,5 +21,4 @@ public class ApplicationsVo {
 
     private String reviewSuggestions;
 
-    private UniversitiesVo universitiesInfo;
 }
