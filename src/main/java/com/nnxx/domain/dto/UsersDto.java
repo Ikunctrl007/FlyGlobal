@@ -1,7 +1,10 @@
 package com.nnxx.domain.dto;
 
 import com.nnxx.domain.enums.EducationalType;
+import com.nnxx.domain.enums.UsersRole;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 
 @Data
@@ -17,7 +20,15 @@ public class UsersDto {
 
     private String email;
 
+    private String sex;
+
+    private LocalDate dateOfBirth;
+
     private EducationalType educationalBackground;
 
     private String academicCertificate;
+
+    private UsersRole role;
+
+    private String avatar;
 }

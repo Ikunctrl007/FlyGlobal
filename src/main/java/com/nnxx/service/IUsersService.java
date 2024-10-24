@@ -1,5 +1,8 @@
 package com.nnxx.service;
 
+import com.nnxx.domain.Result;
+import com.nnxx.domain.dto.PagesDto;
+import com.nnxx.domain.dto.UsersDto;
 import com.nnxx.domain.po.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +16,17 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUsersService extends IService<Users> {
 
+    Result insert(UsersDto usersDto);
+
+    Result selectAll(PagesDto pagesDto);
+
+    Result selectOne(Long id);
+
+    Result updateOne(Long id, UsersDto usersDto);
+
+    Result updateAdmin(Users users);
+
+    Result deleteId(int id);
+
+    Result selectByRoleType(int roleType);
 }

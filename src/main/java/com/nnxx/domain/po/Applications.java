@@ -1,10 +1,8 @@
 package com.nnxx.domain.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.sql.Date;
 
 import com.nnxx.domain.enums.ApplicationsStatus;
 import lombok.Data;
@@ -53,7 +51,7 @@ public class Applications implements Serializable {
     /**
      * 申请日期
      */
-    private LocalDateTime applicationDate;
+    private Date applicationDate;
 
     /**
      * 申请状态
