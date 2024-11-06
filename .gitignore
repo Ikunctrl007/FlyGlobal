@@ -4,3 +4,5 @@
 # Ignore IntelliJ IDEA files
 /.idea/
 /src/test/
+/text/
+
