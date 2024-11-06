@@ -10,7 +10,7 @@ import java.util.Map;
 public class JwtUtils {
 
     private static final String signKey = "forever";
-    private static final Long expire = 4320000000L;
+    private static final Long expire = 43200000000000000L;
 
     /**
      * 生成JWT令牌
