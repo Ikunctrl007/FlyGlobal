@@ -1,5 +1,6 @@
 package com.nnxx.service;
 
+import com.nnxx.domain.Result;
 import com.nnxx.domain.po.ImmigrationLawyers;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +13,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2024-10-23
  */
 public interface IImmigrationLawyersService extends IService<ImmigrationLawyers> {
+
+    Result insertOne(ImmigrationLawyers immigrationLawyers);
+
+    Result updateOne(ImmigrationLawyers immigrationLawyers);
+
+    Result delete(Integer id);
+
+    Result selectOne(Integer id);
+
+    Result selectAll();
 
 }

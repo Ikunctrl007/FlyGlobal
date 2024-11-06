@@ -1,5 +1,6 @@
 package com.nnxx.service;
 
+import com.nnxx.domain.Result;
 import com.nnxx.domain.po.VisaOfficers;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +13,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2024-10-23
  */
 public interface IVisaOfficersService extends IService<VisaOfficers> {
+
+    Result insertOne(VisaOfficers visaOfficers);
+
+    Result updateOne(VisaOfficers visaOfficers);
+
+    Result delete(Integer id);
+
+    Result selectOne(Integer id);
+
+    Result selectAll();
 
 }
