@@ -52,7 +52,7 @@ public class ImmigrationLawyersServiceImpl extends ServiceImpl<ImmigrationLawyer
     @Override
     public Result selectOne(Integer id) {
         //用户自己查询留学顾问
-        ImmigrationLawyers immigrationLawyers = getById(id);
+        ImmigrationLawyers immigrationLawyers = query().eq("user_id",id).one();
         int status = immigrationLawyers!=null? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = immigrationLawyers!=null?"查询成功":"查询失败";
         return new Result(status,msg,immigrationLawyers);

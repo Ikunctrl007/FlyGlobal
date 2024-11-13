@@ -6,6 +6,8 @@ import com.nnxx.domain.po.ImmigrationLawyers;
 import com.nnxx.domain.po.VisaOfficers;
 import com.nnxx.service.IImmigrationLawyersService;
 import com.nnxx.service.IVisaOfficersService;
+import com.nnxx.util.JwtUtils;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,22 +28,31 @@ public class VisaOfficersController {
     private final IVisaOfficersService service;
 
     @PostMapping
-    public Result insert(@RequestBody VisaOfficers visaOfficers){
+    public Result insert(@RequestBody VisaOfficers visaOfficers,@RequestHeader("Authorization") String token){
+        String str = token.substring(7);
+        //获取到的Token里解析出userid
+        Claims claims = JwtUtils.parseJWT(str);
+        Long id = Long.valueOf(claims.get("Token").toString());
+        visaOfficers.setUserId(id);
         return service.insertOne(visaOfficers);
     }
     @PutMapping
     public Result update(@RequestBody VisaOfficers visaOfficers ){
         return service.updateOne(visaOfficers);
     }
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
     //需要超级管理员才可以调用这个方法
     public Result delete(@PathVariable("id") Integer id){
         return service.delete(id);
     }
-    @GetMapping("/id/{id}")
-    public Result selectOne(@PathVariable("id") Integer id){
-        return service.selectOne(id);
+    @GetMapping
+    public Result selectOne(@RequestHeader("Authorization") String token){
+        String str = token.substring(7);
+        //获取到的Token里解析出userid
+        Claims claims = JwtUtils.parseJWT(str);
+        long id = Long.parseLong(claims.get("Token").toString());
+        return service.selectOne((int) id);
     }
     @GetMapping("/list")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
