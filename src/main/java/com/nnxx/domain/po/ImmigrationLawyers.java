@@ -65,6 +65,10 @@ public class ImmigrationLawyers implements Serializable {
      * 律师简介
      */
     private String bio;
+    /**
+     * 头像
+     */
+    private String profilePicture;
 
 
 }

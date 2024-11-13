@@ -51,7 +51,7 @@ public class VisaOfficersServiceImpl extends ServiceImpl<VisaOfficersMapper, Vis
     @Override
     public Result selectOne(Integer id) {
         //用户自己查询留学顾问
-        VisaOfficers visaOfficers = getById(id);
+        VisaOfficers visaOfficers =  query().eq("user_id",id).one();
         int status = visaOfficers!=null? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = visaOfficers!=null?"查询成功":"查询失败";
         return new Result(status,msg,visaOfficers);

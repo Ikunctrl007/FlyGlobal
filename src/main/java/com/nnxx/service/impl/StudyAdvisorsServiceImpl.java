@@ -51,7 +51,7 @@ public class StudyAdvisorsServiceImpl extends ServiceImpl<StudyAdvisorsMapper, S
     @Override
     public Result selectOne(Integer id) {
         //用户自己查询留学顾问
-        StudyAdvisors studyAdvisors = getById(id);
+        StudyAdvisors studyAdvisors = query().eq("user_id",id).one();
         int status = studyAdvisors!=null? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = studyAdvisors!=null?"查询成功":"查询失败";
         return new Result(status,msg,studyAdvisors);
