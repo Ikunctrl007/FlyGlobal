@@ -11,6 +11,7 @@ import com.nnxx.domain.dto.UsersDto;
 import com.nnxx.domain.po.PagesVo;
 import com.nnxx.domain.po.Users;
 import com.nnxx.domain.vo.UsersVo;
+import com.nnxx.exception.BusinessException;
 import com.nnxx.mapper.UsersMapper;
 import com.nnxx.service.IUsersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -36,6 +37,13 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         if(Objects.isNull(usersDto)){
             return new Result(Code.SELECT_ERROR,"输入不能为空");
         }
+        //查询用户名是否存在，存在返回提示
+        List<Users> list = list();
+        list.forEach(users -> {
+            if(Objects.equals(users.getUsername(), usersDto.getUsername())){
+                throw new  BusinessException(Code.SELECT_ERROR,"用户名已存在，请重新输入用户名");
+            }
+        });
         Users users = BeanUtil.copyProperties(usersDto,Users.class);
         //使用Security提供的加密方法来加密密码
         BCryptPasswordEncoder bCryptPasswordEncoder =new BCryptPasswordEncoder();
