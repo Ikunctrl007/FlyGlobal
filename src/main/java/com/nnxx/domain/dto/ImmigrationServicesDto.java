@@ -20,5 +20,4 @@ public class ImmigrationServicesDto {
 
     private Long lawyerId;
 
-    private LocalDateTime lastUpdated;
 }
