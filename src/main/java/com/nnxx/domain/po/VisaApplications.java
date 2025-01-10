@@ -35,6 +35,10 @@ public class VisaApplications implements Serializable {
      * 用户ID，外键
      */
     private Long userId;
+    /**
+     * 签证官员ID，外键
+     */
+    private Long visaId;
 
     /**
      * 签证类型(0旅游签证、1留学签证、2工作签证、3探亲签证、4申根签证)

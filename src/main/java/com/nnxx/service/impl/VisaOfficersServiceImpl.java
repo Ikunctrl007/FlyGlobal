@@ -49,7 +49,7 @@ public class VisaOfficersServiceImpl extends ServiceImpl<VisaOfficersMapper, Vis
     }
 
     @Override
-    public Result selectOne(Integer id) {
+    public Result selectOne(Long id) {
         //用户自己查询留学顾问
         VisaOfficers visaOfficers =  query().eq("user_id",id).one();
         int status = visaOfficers!=null? Code.SELECT_YES:Code.SELECT_ERROR;

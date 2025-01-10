@@ -47,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         //TODO 添加权限信息
         // 模拟为用户添加权限信息，这里使用一个固定的权限列表作为示例
-        UsersRole usersRole = user.getRole();
+        UsersRole usersRole = user.getRoleId();
         List<String> authorities = new ArrayList<>();
         authorities.add("USER");
         //判断是否是管理员

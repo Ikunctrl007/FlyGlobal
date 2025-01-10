@@ -5,6 +5,7 @@ import com.nnxx.domain.Result;
 import com.nnxx.domain.po.StudyAdvisors;
 import com.nnxx.service.IStudyAdvisorsService;
 import com.nnxx.util.JwtUtils;
+import com.nnxx.util.ParseTokenUtils;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,10 +27,7 @@ public class StudyAdvisorsController {
     private final IStudyAdvisorsService service;
     @PostMapping
     public Result insert(@RequestBody StudyAdvisors studyAdvisors,@RequestHeader("Authorization") String token){
-        String str = token.substring(7);
-        //获取到的Token里解析出userid
-        Claims claims = JwtUtils.parseJWT(str);
-        Long id = Long.valueOf(claims.get("Token").toString());
+        Long id = ParseTokenUtils.parseToken(token);
         studyAdvisors.setUserId(id);
         return service.insertOne(studyAdvisors);
     }
@@ -45,11 +43,8 @@ public class StudyAdvisorsController {
     }
     @GetMapping
     public Result selectOne(@RequestHeader("Authorization") String token){
-        String str = token.substring(7);
-        //获取到的Token里解析出userid
-        Claims claims = JwtUtils.parseJWT(str);
-        long id = Long.parseLong(claims.get("Token").toString());
-        return service.selectOne((int) id);
+        Long id = ParseTokenUtils.parseToken(token);
+        return service.selectOne(id);
     }
     @GetMapping("/list")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")

@@ -20,7 +20,7 @@ public interface IImmigrationLawyersService extends IService<ImmigrationLawyers>
 
     Result delete(Integer id);
 
-    Result selectOne(Integer id);
+    Result selectOne(Long id);
 
     Result selectAll();
 

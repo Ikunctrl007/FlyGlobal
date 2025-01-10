@@ -85,8 +85,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         Users users = BeanUtil.copyProperties(usersDto,Users.class);
         users.setId(id);
         //普通用户不可以修改角色
-        if (!Objects.isNull(users.getRole())){
-            users.setRole(null);
+        if (!Objects.isNull(users.getRoleId())){
+            users.setRoleId(null);
         }
         //执行修改
         boolean flag = updateById(users);
@@ -113,7 +113,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
     @Override
     public Result selectByRoleType(int roleType) {
-        List<Users> list = lambdaQuery().eq(Users::getRole, roleType).list();
+        List<Users> list = lambdaQuery().eq(Users::getRoleId, roleType).list();
         int status = list!=null?Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = list!=null?"查询成功":"查询失败";
         return new Result(status,msg,list);

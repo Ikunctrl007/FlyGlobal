@@ -3,7 +3,6 @@ package com.nnxx.service.impl;
 import com.nnxx.domain.Code;
 import com.nnxx.domain.Result;
 import com.nnxx.domain.po.ImmigrationLawyers;
-import com.nnxx.domain.po.StudyAdvisors;
 import com.nnxx.mapper.ImmigrationLawyersMapper;
 import com.nnxx.service.IImmigrationLawyersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -50,7 +49,7 @@ public class ImmigrationLawyersServiceImpl extends ServiceImpl<ImmigrationLawyer
     }
 
     @Override
-    public Result selectOne(Integer id) {
+    public Result selectOne(Long id) {
         //用户自己查询留学顾问
         ImmigrationLawyers immigrationLawyers = query().eq("user_id",id).one();
         int status = immigrationLawyers!=null? Code.SELECT_YES:Code.SELECT_ERROR;

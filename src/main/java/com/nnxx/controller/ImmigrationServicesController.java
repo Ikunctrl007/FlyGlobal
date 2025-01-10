@@ -6,6 +6,7 @@ import com.nnxx.domain.dto.ImmigrationDto;
 import com.nnxx.domain.dto.ImmigrationServicesDto;
 import com.nnxx.service.IImmigrationServicesService;
 import com.nnxx.util.JwtUtils;
+import com.nnxx.util.ParseTokenUtils;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,10 +34,7 @@ public class ImmigrationServicesController {
     @PostMapping
     public Result insert(@RequestHeader("Authorization")String token, @RequestBody ImmigrationServicesDto immigrationServicesDto){
         //获取请求头里的userid
-        String substring = token.substring(7);
-        Claims claims = JwtUtils.parseJWT(substring);
-        Object userid = claims.get("Token");
-        Long id = Long.valueOf(userid.toString());
+        Long id = ParseTokenUtils.parseToken(token);
         immigrationServicesDto.setUserId(id);
         return service.insert(immigrationServicesDto);
     }
@@ -45,10 +43,7 @@ public class ImmigrationServicesController {
     @GetMapping("/user")
     public Result selectByUser(@RequestHeader("Authorization")String token){
         //获取请求头里的userid
-        String substring = token.substring(7);
-        Claims claims = JwtUtils.parseJWT(substring);
-        Object userid = claims.get("Token");
-        Long id = Long.valueOf(userid.toString());
+        Long id = ParseTokenUtils.parseToken(token);
         return service.selectByUser(id);
     }
     //律师查询咨询自己的咨询表
@@ -56,10 +51,7 @@ public class ImmigrationServicesController {
     @GetMapping("/immigration")
     public Result selectById(@RequestHeader("Authorization")String token){
         //获取请求头里的userid
-        String substring = token.substring(7);
-        Claims claims = JwtUtils.parseJWT(substring);
-        Object userid = claims.get("Token");
-        Long id = Long.valueOf(userid.toString());
+        Long id = ParseTokenUtils.parseToken(token);
         return service.selectByImmigration(id);
     }
     //律师根据咨询表ID修改咨询表

@@ -7,6 +7,7 @@ import com.nnxx.domain.dto.UsersDto;
 import com.nnxx.domain.po.Users;
 import com.nnxx.service.IUsersService;
 import com.nnxx.util.JwtUtils;
+import com.nnxx.util.ParseTokenUtils;
 import io.jsonwebtoken.Claims;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -43,10 +44,7 @@ public class UsersController {
     @GetMapping()
     public Result selectOne(@RequestHeader("Authorization") String token){
         //首先获取请求头里的Token，在取出Token里的userid
-        String substring = token.substring(7);
-        Claims claims = JwtUtils.parseJWT(substring);
-        Object userid = claims.get("Token");
-        Long id = Long.valueOf(userid.toString());
+        Long id = ParseTokenUtils.parseToken(token);
         return service.selectOne(id);
     }
     //普通用户修改个人信息
@@ -54,10 +52,7 @@ public class UsersController {
     @PutMapping()
     public Result updateOne(@RequestHeader("Authorization") String token,@RequestBody UsersDto usersDto){
         //首先获取请求头里的Token，在取出Token里的userid
-        String substring = token.substring(7);
-        Claims claims = JwtUtils.parseJWT(substring);
-        Object userid = claims.get("Token");
-        Long id = Long.valueOf(userid.toString());
+        Long id = ParseTokenUtils.parseToken(token);
         return service.updateOne(id,usersDto);
     }
     //超级管理员任意修改人员信息

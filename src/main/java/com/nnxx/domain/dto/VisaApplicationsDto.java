@@ -8,8 +8,11 @@ import java.time.LocalDateTime;
 @Data
 public class VisaApplicationsDto {
     private Long userId;
+    private Long visaId;
 
     private VisaType visaType;
+
+    private String documents;
 
     private String applicationForm;
 

@@ -7,6 +7,7 @@ import com.nnxx.domain.dto.ApplicationsDto;
 import com.nnxx.domain.po.Applications;
 import com.nnxx.service.IApplicationsService;
 import com.nnxx.util.JwtUtils;
+import com.nnxx.util.ParseTokenUtils;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,9 +31,7 @@ public class ApplicationsController {
     @PostMapping
     public Result insert(@RequestHeader("Authorization") String token,@RequestBody ApplicationsDto applicationsDto){
         //取出Token里的userid复制给Dto
-        String substring = token.substring(7);
-        Claims claims = JwtUtils.parseJWT(substring);
-        Long id = Long.valueOf(claims.get("Token").toString());
+        Long id = ParseTokenUtils.parseToken(token);
         applicationsDto.setUserId(id);
         return service.insert(applicationsDto);
     }
@@ -40,9 +39,7 @@ public class ApplicationsController {
     @PreAuthorize("hasAnyAuthority('USER')")
     @GetMapping("/status/{id}")
     public Result selectOne(@RequestHeader("Authorization")String token,@PathVariable int id){
-        String substring = token.substring(7);
-        Claims claims = JwtUtils.parseJWT(substring);
-        Long userid = Long.valueOf(claims.get("Token").toString());
+        Long userid = ParseTokenUtils.parseToken(token);
         return service.selectOne(userid,id);
     }
     //留学顾问修改申请

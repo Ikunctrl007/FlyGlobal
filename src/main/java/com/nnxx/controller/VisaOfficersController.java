@@ -7,6 +7,7 @@ import com.nnxx.domain.po.VisaOfficers;
 import com.nnxx.service.IImmigrationLawyersService;
 import com.nnxx.service.IVisaOfficersService;
 import com.nnxx.util.JwtUtils;
+import com.nnxx.util.ParseTokenUtils;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,10 +30,7 @@ public class VisaOfficersController {
 
     @PostMapping
     public Result insert(@RequestBody VisaOfficers visaOfficers,@RequestHeader("Authorization") String token){
-        String str = token.substring(7);
-        //获取到的Token里解析出userid
-        Claims claims = JwtUtils.parseJWT(str);
-        Long id = Long.valueOf(claims.get("Token").toString());
+        Long id = ParseTokenUtils.parseToken(token);
         visaOfficers.setUserId(id);
         return service.insertOne(visaOfficers);
     }
@@ -48,11 +46,8 @@ public class VisaOfficersController {
     }
     @GetMapping
     public Result selectOne(@RequestHeader("Authorization") String token){
-        String str = token.substring(7);
-        //获取到的Token里解析出userid
-        Claims claims = JwtUtils.parseJWT(str);
-        long id = Long.parseLong(claims.get("Token").toString());
-        return service.selectOne((int) id);
+        Long id = ParseTokenUtils.parseToken(token);
+        return service.selectOne(id);
     }
     @GetMapping("/list")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")

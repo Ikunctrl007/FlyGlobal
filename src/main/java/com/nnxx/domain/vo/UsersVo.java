@@ -1,6 +1,7 @@
 package com.nnxx.domain.vo;
 
 import com.nnxx.domain.enums.EducationalType;
+import com.nnxx.domain.enums.UsersRole;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -30,4 +31,5 @@ public class UsersVo {
     private String passport;
 
     private String academicCertificate;
+    private UsersRole roleId;
 }

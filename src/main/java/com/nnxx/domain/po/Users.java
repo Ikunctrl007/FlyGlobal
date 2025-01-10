@@ -35,7 +35,7 @@ public class Users implements Serializable {
     /**
      * 用户角色
      */
-    private UsersRole role;
+    private UsersRole roleId;
     /**
      * 用户名
      */

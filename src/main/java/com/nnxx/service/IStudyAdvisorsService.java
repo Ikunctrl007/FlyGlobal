@@ -20,7 +20,7 @@ public interface IStudyAdvisorsService extends IService<StudyAdvisors> {
 
     Result delete(Integer id);
 
-    Result selectOne(Integer id);
+    Result selectOne(Long id);
 
     Result selectAll();
 }

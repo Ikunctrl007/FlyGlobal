@@ -25,6 +25,6 @@ public class ProjectExceptionAdvice {
         if (ex instanceof AccessDeniedException || ex instanceof AuthenticationException) {
             throw ex;
         }
-        return new Result(Code.SELECT_ERROR,"系统繁忙请稍后");
+        return new Result(Code.SELECT_ERROR,ex.getMessage());
     }
 }
