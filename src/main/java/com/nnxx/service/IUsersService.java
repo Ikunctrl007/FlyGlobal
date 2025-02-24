@@ -29,4 +29,7 @@ public interface IUsersService extends IService<Users> {
     Result deleteId(int id);
 
     Result selectByRoleType(int roleType);
+
+    Result insertUser(Users users);
+
 }

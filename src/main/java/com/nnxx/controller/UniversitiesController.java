@@ -38,18 +38,19 @@ public class UniversitiesController {
     }
     //管理员添加院校信息
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
-    @PostMapping
+    @PostMapping("/admin")
     public Result insert(@RequestBody Universities universities){
         return  service.insert(universities);
     }
     //管理员修改院校信息
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
-    @PutMapping
+    @PutMapping("/admin")
     public Result updateByCollegeId(@RequestBody Universities universities){
         return  service.updateByCollegeId(universities);
     }
+    //管理员删除院校信息
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/admin/id/{id}")
     public Result deleteById(@PathVariable("id") Long id){
         return service.deleteById(id);
     }

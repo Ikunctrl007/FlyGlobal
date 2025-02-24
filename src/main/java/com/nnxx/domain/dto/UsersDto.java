@@ -27,8 +27,8 @@ public class UsersDto {
     private EducationalType educationalBackground;
 
     private String academicCertificate;
-
-    private UsersRole role;
+    private String oldAvatar;
 
     private String avatar;
+    private UsersRole roleId;
 }

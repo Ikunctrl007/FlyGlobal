@@ -34,6 +34,11 @@ public class Applications implements Serializable {
     private Long userId;
 
     /**
+     * 顾问ID
+     */
+    private Long advisorsId;
+
+    /**
      * 院校ID，外键
      */
     private Long universityId;

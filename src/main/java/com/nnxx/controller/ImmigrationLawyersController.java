@@ -37,7 +37,7 @@ public class ImmigrationLawyersController {
     public Result update(@RequestBody ImmigrationLawyers immigrationLawyers ){
         return service.updateOne(immigrationLawyers);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/id/{id}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
     //需要超级管理员才可以调用这个方法
     public Result delete(@PathVariable("id") Integer id){
@@ -48,7 +48,7 @@ public class ImmigrationLawyersController {
         Long id = ParseTokenUtils.parseToken(token);
         return service.selectOne(id);
     }
-    @GetMapping("/list")
+    @GetMapping("/admin")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
     //超级管理员可以查看所有的留学顾问
     public Result selectAll(){

@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -66,6 +67,7 @@ public class ImmigrationServicesServiceImpl extends ServiceImpl<ImmigrationServi
     public Result updateByUser(ImmigrationDto immigrationDto) {
         //根据咨询表ID修改对应的咨询表
         ImmigrationServices immigrationServices = BeanUtil.copyProperties(immigrationDto, ImmigrationServices.class);
+        immigrationServices.setLastUpdated(LocalDateTime.now());
         boolean flag = updateById(immigrationServices);
         int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = flag?"修改成功":"修改失败";
@@ -78,6 +80,31 @@ public class ImmigrationServicesServiceImpl extends ServiceImpl<ImmigrationServi
         boolean flag = removeById(id);
         int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = flag?"删除成功":"删除失败";
+        return new Result(status,msg);
+    }
+
+    @Override
+    public Result selectAllImmigration() {
+        List<ImmigrationServices> list = list();
+        int status = list!=null? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = list!=null?"查询成功":"查询失败";
+        return new Result(status,msg,list);
+    }
+
+    @Override
+    public Result updateImmigration(ImmigrationServices immigrationServices) {
+        immigrationServices.setLastUpdated(LocalDateTime.now());
+        boolean flag = updateById(immigrationServices);
+        int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = flag?"修改成功":"修改失败";
+        return new Result(status,msg);
+    }
+
+    @Override
+    public Result insertImmigration(ImmigrationServices immigrationServices) {
+        boolean flag = save(immigrationServices);
+        int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = flag?"添加成功":"添加失败";
         return new Result(status,msg);
     }
 }

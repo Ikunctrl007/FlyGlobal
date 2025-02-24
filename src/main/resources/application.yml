@@ -18,8 +18,9 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
   #  将相对路径的/upload/作为静态资源提供给外部访问
-  mvc:
-    static-path-pattern: /upload/**
+  web:
+    resources:
+      static-locations: classpath:/static/, file:upload/
 
 # MybatisPlus配置
 mybatis-plus:

@@ -29,4 +29,8 @@ public interface IVisaApplicationsService extends IService<VisaApplications> {
     Result deleteById(Long id);
 
     Result updateByApplication(VisaApplications visaApplications);
+
+    Result insertVisaApplication(VisaApplications visaApplications);
+
+    Result selectAllByStatus(int id);
 }

@@ -1,51 +1,53 @@
-package com.nnxx.domain.po;
-
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.LocalDate;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+package com.nnxx.domain.vo;
 
 import com.nnxx.domain.enums.EducationalType;
 import com.nnxx.domain.enums.UsersRole;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 用户信息表
- * </p>
- *
- * @author 宁x
- * @since 2024-10-23
- */
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("users")
-public class Users implements Serializable {
-
+public class AdvisorsInformationVo {
     /**
-     * 主键ID
+     * 留学顾问唯一标识符
      */
     private Long id;
+    /**
+     * 用户ID
+     */
+    private Long userId;
 
     /**
-     * 用户角色
+     * 所属机构
      */
-    private UsersRole roleId;
+    private String firm;
+
+    /**
+     * 顾问经验年数
+     */
+    private Integer experienceYears;
+
+    /**
+     * 户籍地
+     */
+    private String contactInfo;
+
+    /**
+     * 顾问评分
+     */
+    private BigDecimal rating;
+
+    /**
+     * 顾问简介
+     */
+    private String bio;
+
     /**
      * 用户名
      */
     private String username;
-
-    /**
-     * 密码
-     */
-    private String password;
-
     /**
      * 真实姓名
      */
@@ -80,7 +82,6 @@ public class Users implements Serializable {
      * 头像
      */
     private String avatar;
-    private String oldAvatar;
 
     /**
      * 注册时间
@@ -91,12 +92,10 @@ public class Users implements Serializable {
      * 护照
      */
     private String passport;
-    private String oldPassport;
 
     /**
      * 学历证明
      */
     private String academicCertificate;
-
 
 }

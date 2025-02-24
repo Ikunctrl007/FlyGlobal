@@ -25,4 +25,10 @@ public interface IImmigrationServicesService extends IService<ImmigrationService
     Result updateByUser(ImmigrationDto immigrationDto);
 
     Result deleteById(long id);
+
+    Result selectAllImmigration();
+
+    Result updateImmigration(ImmigrationServices immigrationServices);
+
+    Result insertImmigration(ImmigrationServices immigrationServices);
 }
