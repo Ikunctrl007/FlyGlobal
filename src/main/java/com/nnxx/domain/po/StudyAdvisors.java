@@ -33,11 +33,6 @@ public class StudyAdvisors implements Serializable {
     private Long userId;
 
     /**
-     * 顾问姓名
-     */
-    private String name;
-
-    /**
      * 所属机构
      */
     private String firm;
@@ -48,7 +43,7 @@ public class StudyAdvisors implements Serializable {
     private Integer experienceYears;
 
     /**
-     * 联系方式
+     * 户籍地
      */
     private String contactInfo;
 
@@ -62,10 +57,6 @@ public class StudyAdvisors implements Serializable {
      */
     private String bio;
 
-    /**
-     * 顾问头像
-     */
-    private String profilePicture;
 
 
 }

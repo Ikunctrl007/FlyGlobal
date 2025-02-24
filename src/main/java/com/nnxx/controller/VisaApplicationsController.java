@@ -51,10 +51,16 @@ public class VisaApplicationsController {
     }
     //签证官员查询自己的申请
     @PreAuthorize("hasAnyAuthority('VISA_OFFICER')")
-    @GetMapping("/application")
+    @GetMapping("/list")
     public Result selectById(@RequestHeader("Authorization")String token){
         Long id = ParseTokenUtils.parseToken(token);
         return service.selectById(id);
+    }
+    //签证官员根据申请状态查询
+    @PreAuthorize("hasAnyAuthority('VISA_OFFICER')")
+    @GetMapping("/officer/{status}")
+    public Result selectAllByStatus(@PathVariable("status") int id){
+        return service.selectAllByStatus(id);
     }
     //签证官员修改申请
     @PreAuthorize("hasAnyAuthority('VISA_OFFICER')")
@@ -62,20 +68,28 @@ public class VisaApplicationsController {
     public Result updateByApplicationId(@RequestBody VisaApplicationsVisaDto visaApplicationsVisaDto){
         return service.updateByApplicationId(visaApplicationsVisaDto);
     }
-    //超级管理员可以删除，修改，查询所有用户申请
+    //查询所有用户申请
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
-    @GetMapping("/admin/list")
+    @GetMapping("/admin")
     public Result selectAll(){
         return service.selectAll();
     }
+    //删除
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/admin/id/{id}")
     public Result deleteById(@PathVariable("id") Long id){
         return service.deleteById(id);
     }
+    //修改
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
     @PutMapping("/admin")
     public Result updateByApplication(@RequestBody VisaApplications visaApplications){
         return service.updateByApplication(visaApplications);
+    }
+    //添加
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    @PostMapping("/admin")
+    public Result insertVisaApplication(@RequestBody VisaApplications visaApplications){
+        return service.insertVisaApplication(visaApplications);
     }
 }

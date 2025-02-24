@@ -70,4 +70,44 @@ public class ApplicationsServiceImpl extends ServiceImpl<ApplicationsMapper, App
         String msg = list!=null?"查询成功":"查询失败";
         return new Result(status,msg,list);
     }
+
+    @Override
+    public Result selectAllApplication() {
+        List<Applications> list = list();
+        int status = list!=null? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = list!=null?"查询成功":"查询失败";
+        return new Result(status,msg,list);
+    }
+
+    @Override
+    public Result updateApplication(Applications applications) {
+        boolean flag = updateById(applications);
+        int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = flag?"修改成功":"修改失败";
+        return new Result(status,msg);
+    }
+
+    @Override
+    public Result deleteById(Long id) {
+        boolean flag = removeById(id);
+        int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = flag?"删除成功":"删除失败";
+        return new Result(status,msg);
+    }
+
+    @Override
+    public Result insertApplication(Applications applications) {
+        boolean flag = save(applications);
+        int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = flag?"修改成功":"修改失败";
+        return new Result(status,msg);
+    }
+
+    @Override
+    public Result selectByAdvisors(Long userid) {
+        List<Applications> list = lambdaQuery().eq(Applications::getAdvisorsId,userid).list();
+        int status = list!=null? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = list!=null?"查询成功":"查询失败";
+        return new Result(status,msg,list);
+    }
 }

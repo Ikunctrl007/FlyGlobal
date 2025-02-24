@@ -31,22 +31,26 @@ public class StudyAdvisorsController {
         studyAdvisors.setUserId(id);
         return service.insertOne(studyAdvisors);
     }
+
     @PutMapping
     public Result update(@RequestBody StudyAdvisors studyAdvisors ){
         return service.updateOne(studyAdvisors);
     }
-    @DeleteMapping("/{id}")
+
+    @DeleteMapping("/admin/id/{id}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
-    //需要超级管理员才可以调用这个方法
+    //超级管理员删除顾问
     public Result delete(@PathVariable("id") Integer id){
         return service.delete(id);
     }
+
     @GetMapping
     public Result selectOne(@RequestHeader("Authorization") String token){
         Long id = ParseTokenUtils.parseToken(token);
         return service.selectOne(id);
     }
-    @GetMapping("/list")
+
+    @GetMapping("/admin")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
     //超级管理员可以查看所有的留学顾问
     public Result selectAll(){

@@ -33,17 +33,12 @@ public class VisaOfficers implements Serializable {
      */
     private Long userId;
     /**
-     * 签证官员姓名
-     */
-    private String name;
-
-    /**
      * 工作机构
      */
     private String agency;
 
     /**
-     * 联系方式
+     * 户籍地
      */
     private String contactInfo;
 
@@ -56,11 +51,6 @@ public class VisaOfficers implements Serializable {
      * 官员简介
      */
     private String bio;
-
-    /**
-     * 签证官员头像
-     */
-    private String profilePicture;
 
 
 }

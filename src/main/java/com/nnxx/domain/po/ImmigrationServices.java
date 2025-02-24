@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
-import com.nnxx.domain.enums.ForumPostsType;
-import com.nnxx.domain.enums.ImmigrationType;
-import com.nnxx.domain.enums.OccupationType;
+import com.nnxx.domain.enums.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -76,6 +74,10 @@ public class ImmigrationServices implements Serializable {
      * 最后更新时间
      */
     private LocalDateTime lastUpdated;
+    /**
+     * 咨询状态（0未回复、1已回复)
+     */
+    private ImmigrationStatus status;
 
 
 }

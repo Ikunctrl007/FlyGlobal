@@ -6,6 +6,7 @@ import com.nnxx.domain.Code;
 import com.nnxx.domain.Result;
 import com.nnxx.domain.dto.VisaApplicationsDto;
 import com.nnxx.domain.dto.VisaApplicationsVisaDto;
+import com.nnxx.domain.po.Applications;
 import com.nnxx.domain.po.VisaApplications;
 import com.nnxx.domain.po.VisaOfficers;
 import com.nnxx.mapper.VisaApplicationsMapper;
@@ -15,6 +16,7 @@ import com.nnxx.service.IVisaOfficersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -83,10 +85,29 @@ public class VisaApplicationsServiceImpl extends ServiceImpl<VisaApplicationsMap
 
     @Override
     public Result updateByApplication(VisaApplications visaApplications) {
+        visaApplications.setLastUpdated(LocalDateTime.now());
         boolean flag = updateById(visaApplications);
         int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = flag?"修改成功":"修改失败";
         return new Result(status,msg);
+    }
+
+    @Override
+    public Result insertVisaApplication(VisaApplications visaApplications) {
+        boolean flag = save(visaApplications);
+        int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = flag?"添加成功":"添加失败";
+        return new Result(status,msg);
+    }
+
+    @Override
+    public Result selectAllByStatus(int id) {
+        List<VisaApplications> list = lambdaQuery()
+                .eq( VisaApplications::getStatus, id)
+                .list();
+        int status = list!=null? Code.SELECT_YES:Code.SELECT_ERROR;
+        String msg = list!=null?"查询成功":"查询失败";
+        return new Result(status,msg,list);
     }
 
 }

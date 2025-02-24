@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 
+import com.nnxx.domain.enums.ApplicationsStatus;
 import com.nnxx.domain.enums.ImmigrationType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,11 +33,6 @@ public class ImmigrationLawyers implements Serializable {
      */
     private Long userId;
     /**
-     * 律师姓名
-     */
-    private String name;
-
-    /**
      * 所属律所
      */
     private String firm;
@@ -52,7 +48,7 @@ public class ImmigrationLawyers implements Serializable {
     private Integer experienceYears;
 
     /**
-     * 联系方式
+     * 户籍地
      */
     private String contactInfo;
 
@@ -65,10 +61,7 @@ public class ImmigrationLawyers implements Serializable {
      * 律师简介
      */
     private String bio;
-    /**
-     * 头像
-     */
-    private String profilePicture;
+
 
 
 }

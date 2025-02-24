@@ -36,9 +36,22 @@ public class UsersController {
     //管理员分页查询所有用户信息
     @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
     @GetMapping("/admin/page")
-    public Result selectAll(@RequestBody PagesDto pagesDto){
+    public Result selectAll(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) boolean isAsc) {
+        // 构造 PagesDto 对象
+        PagesDto pagesDto = new PagesDto();
+        pagesDto.setPage(page);
+        pagesDto.setSize(size);
+        pagesDto.setSortBy(sortBy);
+        pagesDto.setAsc(isAsc);
+
+        // 调用服务层的方法
         return service.selectAll(pagesDto);
     }
+
     //普通用户查询个人信息
     @PreAuthorize("hasAnyAuthority('USER')")
     @GetMapping()
@@ -72,5 +85,10 @@ public class UsersController {
     @GetMapping("/admin/role/{roleType}")
     public Result selectByRoleType(@PathVariable int roleType){
         return service.selectByRoleType(roleType);
+    }
+    @PostMapping("/admin")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    public Result insert(@RequestBody Users users){
+        return service.insertUser(users);
     }
 }

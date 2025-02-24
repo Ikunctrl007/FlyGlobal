@@ -50,9 +50,41 @@ public class ApplicationsController {
     }
     //留学顾问根据申请状态查询申请
     @PreAuthorize("hasAnyAuthority('STUDY_ABROAD_CONSULTANT')")
-    @GetMapping("/list/{id}")
-    public Result selectAll(@PathVariable int id){
-        return service.selectAll(id);
+    @GetMapping("/advisors/{status}")
+    public Result selectAll(@PathVariable int status){
+        return service.selectAll(status);
     }
 
+    //留学顾问查询自己的申请
+    @PreAuthorize("hasAnyAuthority('STUDY_ABROAD_CONSULTANT')")
+    @GetMapping("/list")
+    public Result selectByAdvisors(@RequestHeader("Authorization")String token){
+        Long userid = ParseTokenUtils.parseToken(token);
+        return service.selectByAdvisors(userid);
+    }
+
+    //管理员查询所有的申请表
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    @GetMapping("/admin")
+    public Result selectAllApplication(){
+        return service.selectAllApplication();
+    }
+    //管理员修改申请表
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    @PutMapping("/admin")
+    public Result updateApplication(@RequestBody Applications applications){
+        return service.updateApplication(applications);
+    }
+    //管理员添加申请表
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    @PostMapping("/admin")
+    public Result insertApplication(@RequestBody Applications applications){
+        return service.insertApplication(applications);
+    }
+    //管理员删除申请表
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    @DeleteMapping("/admin/id/{id}")
+    public Result updateApplication(@PathVariable("id") Long id){
+        return service.deleteById(id);
+    }
 }
