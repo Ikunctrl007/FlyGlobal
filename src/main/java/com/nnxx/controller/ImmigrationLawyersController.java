@@ -23,17 +23,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/immigration-lawyers")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('IMMIGRATION_LAWYER')")
 public class ImmigrationLawyersController {
     private final IImmigrationLawyersService service;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('IMMIGRATION_LAWYER')")
     public Result insert(@RequestBody ImmigrationLawyers immigrationLawyers,@RequestHeader("Authorization") String token){
         Long id = ParseTokenUtils.parseToken(token);
         immigrationLawyers.setUserId(id);
         return service.insertOne(immigrationLawyers);
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('IMMIGRATION_LAWYER')")
     public Result update(@RequestBody ImmigrationLawyers immigrationLawyers ){
         return service.updateOne(immigrationLawyers);
     }
@@ -44,12 +45,13 @@ public class ImmigrationLawyersController {
         return service.delete(id);
     }
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('IMMIGRATION_LAWYER')")
     public Result selectOne(@RequestHeader("Authorization") String token){
         Long id = ParseTokenUtils.parseToken(token);
         return service.selectOne(id);
     }
     @GetMapping("/admin")
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('USER')")
     //超级管理员可以查看所有的留学顾问
     public Result selectAll(){
         return service.selectAll();

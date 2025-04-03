@@ -18,7 +18,7 @@ public interface IApplicationsService extends IService<Applications> {
 
     Result insert(ApplicationsDto applicationsDto);
 
-    Result selectOne(Long userid,int id);
+    Result selectOne(Long userid);
 
     Result updateOne(ApplicationConsultantDto applicationConsultantDto);
 

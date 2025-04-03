@@ -32,4 +32,5 @@ public interface IUsersService extends IService<Users> {
 
     Result insertUser(Users users);
 
+    Result selectInfo(Long id);
 }

@@ -12,4 +12,5 @@ public class LoginResponse {
     private String username;
     private Long id;
     private Long roleId;
+    private String avatar;
 }

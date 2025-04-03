@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/study-advisors")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('STUDY_ABROAD_CONSULTANT')")
 public class StudyAdvisorsController {
     private final IStudyAdvisorsService service;
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('STUDY_ABROAD_CONSULTANT')")
     public Result insert(@RequestBody StudyAdvisors studyAdvisors,@RequestHeader("Authorization") String token){
         Long id = ParseTokenUtils.parseToken(token);
         studyAdvisors.setUserId(id);
@@ -33,6 +33,7 @@ public class StudyAdvisorsController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('STUDY_ABROAD_CONSULTANT')")
     public Result update(@RequestBody StudyAdvisors studyAdvisors ){
         return service.updateOne(studyAdvisors);
     }
@@ -45,13 +46,14 @@ public class StudyAdvisorsController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('STUDY_ABROAD_CONSULTANT')")
     public Result selectOne(@RequestHeader("Authorization") String token){
         Long id = ParseTokenUtils.parseToken(token);
         return service.selectOne(id);
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('USER')")
     //超级管理员可以查看所有的留学顾问
     public Result selectAll(){
         return service.selectAll();
