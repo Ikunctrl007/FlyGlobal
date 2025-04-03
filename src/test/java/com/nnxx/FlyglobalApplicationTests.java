@@ -15,7 +15,9 @@ class FlyglobalApplicationTests {
 private IVisaOfficersService service;
     @Test
     void contextLoads() {
-        System.out.println(service.selectOne(7L));
+        BCryptPasswordEncoder bCryptPasswordEncoder =new BCryptPasswordEncoder();
+
+        System.out.println(bCryptPasswordEncoder.encode("123456"));
     }
 
 }

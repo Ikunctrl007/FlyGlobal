@@ -52,6 +52,15 @@ public class UsersController {
         return service.selectAll(pagesDto);
     }
 
+    /**
+     * 查询所有的用户的用户名和头像
+     * @return
+     */
+    @GetMapping("/info/{id}")
+    public Result selectInfo(@PathVariable Long id){
+        return service.selectInfo(id);
+    }
+
     //普通用户查询个人信息
     @PreAuthorize("hasAnyAuthority('USER')")
     @GetMapping()
@@ -59,6 +68,12 @@ public class UsersController {
         //首先获取请求头里的Token，在取出Token里的userid
         Long id = ParseTokenUtils.parseToken(token);
         return service.selectOne(id);
+    }
+    //普通用户查询个人信息
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/id/{id}")
+    public Result selectById(@PathVariable("id")Long userid){
+        return service.selectOne(userid);
     }
     //普通用户修改个人信息
     @PreAuthorize("hasAnyAuthority('USER')")

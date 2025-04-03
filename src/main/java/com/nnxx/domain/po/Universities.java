@@ -35,6 +35,12 @@ public class Universities implements Serializable {
     private String collegeName;
 
     /**
+     * 院校图片
+     */
+    private String collegeImg;
+
+
+    /**
      * 院校所在国家
      */
     private String country;
@@ -59,5 +65,18 @@ public class Universities implements Serializable {
      */
     private String admissionStatistics;
 
+    /**
+     * 往年学生录取情况
+     */
+    private String intro;
+
+    /**
+     * 往年学生录取情况
+     */
+    private String collegeUrl;
+    /**
+     * 旧图片
+     */
+    private String oldCollegeImg;
 
 }

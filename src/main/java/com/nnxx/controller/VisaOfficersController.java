@@ -24,17 +24,19 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/visa-officers")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('VISA_OFFICER')")
+
 public class VisaOfficersController {
     private final IVisaOfficersService service;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('VISA_OFFICER')")
     public Result insert(@RequestBody VisaOfficers visaOfficers,@RequestHeader("Authorization") String token){
         Long id = ParseTokenUtils.parseToken(token);
         visaOfficers.setUserId(id);
         return service.insertOne(visaOfficers);
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('VISA_OFFICER')")
     public Result update(@RequestBody VisaOfficers visaOfficers ){
         return service.updateOne(visaOfficers);
     }
@@ -45,12 +47,13 @@ public class VisaOfficersController {
         return service.delete(id);
     }
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('VISA_OFFICER')")
     public Result selectOne(@RequestHeader("Authorization") String token){
         Long id = ParseTokenUtils.parseToken(token);
         return service.selectOne(id);
     }
     @GetMapping("/admin")
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('USER')")
     //超级管理员可以查看所有的留学顾问
     public Result selectAll(){
         return service.selectAll();

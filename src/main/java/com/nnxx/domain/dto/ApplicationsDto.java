@@ -9,6 +9,7 @@ import java.sql.Date;
 public class ApplicationsDto {
 
     private Long userId;
+    private Long advisorsId;
 
     private Long universityId;
 

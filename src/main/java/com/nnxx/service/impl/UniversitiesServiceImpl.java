@@ -6,6 +6,7 @@ import com.nnxx.domain.po.Universities;
 import com.nnxx.mapper.UniversitiesMapper;
 import com.nnxx.service.IUniversitiesService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nnxx.util.ImagesUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,6 +49,10 @@ public class UniversitiesServiceImpl extends ServiceImpl<UniversitiesMapper, Uni
     @Override
     public Result updateByCollegeId(Universities universities) {
         boolean flag = updateById(universities);
+        //删除旧图片
+        if(universities.getOldCollegeImg()!=null) {
+            ImagesUtils.deleteImage(universities.getOldCollegeImg());
+        }
         int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = flag?"修改成功":"修改失败";
         return new Result(status,msg);
@@ -55,6 +60,13 @@ public class UniversitiesServiceImpl extends ServiceImpl<UniversitiesMapper, Uni
 
     @Override
     public Result deleteById(Long id) {
+        Universities universities = getById(id);
+        if(universities.getOldCollegeImg()!=null) {
+            ImagesUtils.deleteImage(universities.getOldCollegeImg());
+        }
+        if(universities.getCollegeImg()!=null) {
+            ImagesUtils.deleteImage(universities.getOldCollegeImg());
+        }
         boolean flag = removeById(id);
         int status = flag? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = flag?"删除成功":"删除失败";

@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
         //通过获取userid查询用户信息
         Result result = service.selectOne(userid);
         UsersVo data = (UsersVo) result.getData();
-        return new Result(200,"登录成功",new LoginResponse(jwt,data.getName(),userid,Long.valueOf(data.getRoleId().getStatus())));
+        return new Result(200,"登录成功",new LoginResponse(jwt,data.getName(),userid,Long.valueOf(data.getRoleId().getStatus()),data.getAvatar()));
     }
 
 }

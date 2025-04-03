@@ -20,7 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -192,4 +194,23 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         String msg = flag?"注册成功":"注册失败";
         return new Result(status,msg);
     }
+
+    @Override
+    public Result selectInfo(Long id) {
+        // 查询指定用户信息
+        Users user = this.getById(id); // 使用 MyBatis Plus 提供的 getById 方法
+        int status = user != null ? Code.SELECT_YES : Code.SELECT_ERROR;
+        String msg = user != null ? "查询成功" : "查询失败";
+
+        // 返回只包含用户名和头像的结果
+        if (user != null) {
+            Map<String, Object> result = new HashMap<>();
+            result.put("username", user.getName());
+            result.put("avatar", user.getAvatar());
+            return new Result(status, msg, result);
+        } else {
+            return new Result(status, msg, null);
+        }
+    }
+
 }

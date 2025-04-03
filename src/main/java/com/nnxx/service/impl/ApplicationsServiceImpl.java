@@ -39,10 +39,9 @@ public class ApplicationsServiceImpl extends ServiceImpl<ApplicationsMapper, App
     }
 
     @Override
-    public Result selectOne(Long userid,int id) {
+    public Result selectOne(Long userid) {
         List<Applications> list = lambdaQuery()
                 .eq(userid != null, Applications::getUserId, userid)
-                .eq(Applications::getStatus,id)
                 .list();
         int status = list!=null? Code.SELECT_YES:Code.SELECT_ERROR;
         String msg = list!=null?"查询成功":"查询失败";

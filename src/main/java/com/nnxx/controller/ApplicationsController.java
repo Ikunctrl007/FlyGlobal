@@ -37,10 +37,10 @@ public class ApplicationsController {
     }
     //普通用户根据申请状态查询申请
     @PreAuthorize("hasAnyAuthority('USER')")
-    @GetMapping("/status/{id}")
-    public Result selectOne(@RequestHeader("Authorization")String token,@PathVariable int id){
+    @GetMapping("/user")
+    public Result selectOne(@RequestHeader("Authorization")String token){
         Long userid = ParseTokenUtils.parseToken(token);
-        return service.selectOne(userid,id);
+        return service.selectOne(userid);
     }
     //留学顾问修改申请
     @PreAuthorize("hasAnyAuthority('STUDY_ABROAD_CONSULTANT')")
